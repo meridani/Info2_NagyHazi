@@ -9,7 +9,7 @@ use tracker;
 CREATE TABLE location (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
     Latitude CHAR VARYING(11) NOT NULL,
-    Longtitude CHAR VARYING(11) NOT NULL,
+    Longitude CHAR VARYING(11) NOT NULL,
     Elevation CHAR VARYING(11)
 );
 
@@ -37,10 +37,10 @@ CREATE TABLE travels (
     FOREIGN KEY ( `TrackID` ) REFERENCES tracks(ID)
 );
     
-INSERT INTO location (Latitude, Longtitude, Elevation) VALUES ( "12.345678"	, "12.345678"	, "170"   );
-INSERT INTO location (Latitude, Longtitude, Elevation) VALUES ( "2.345678"	, "12.34"		, "200"   );
-INSERT INTO location (Latitude, Longtitude, Elevation) VALUES ( "1.345678"	, "5.345678"	, "12000" );
-INSERT INTO location (Latitude, Longtitude, Elevation) VALUES ( "10"		, "-10"			, "12"	  );
+INSERT INTO location (Latitude, Longitude, Elevation) VALUES ( "12.345678"	, "12.345678"	, "170"   );
+INSERT INTO location (Latitude, Longitude, Elevation) VALUES ( "2.345678"	, "12.34"		, "200"   );
+INSERT INTO location (Latitude, Longitude, Elevation) VALUES ( "1.345678"	, "5.345678"	, "12000" );
+INSERT INTO location (Latitude, Longitude, Elevation) VALUES ( "10"		, "-10"			, "12"	  );
     
 INSERT INTO users (AccountName, Email, LocationID) VALUES("Meridani" 	, "szmanndani@gmail.com"	, 1);
 INSERT INTO users (AccountName, Email, LocationID) VALUES("Béla"		, "béla@gmail.com"			, 2);    

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
-    <?php
-        include "head.php";
-        ?>
+
+<head>
+    <?php include "head.html"; ?>
     <title>GPS nyomkövetés</title>
-    </head>
+</head>
 
-    <?php
-        include "header.php";
-        ?>
+<body>
 
-    <?php
-        include "main.php";
-        ?>
+<?php include "header.html"; ?>
+<!-- Start of Body -->
+<div class="container main-content">
+    <div class="jumbotron">
+        <h1>Gps nyomkövető</h1>
+        <p>Felhasználók utazásainak és jelenlegi helyzetének rögzítése</p>
+    </div>
+</div>
 
-    <?php
-        include "footer.php";
-        ?>
+<?php include "footer.html"; ?>
 
+<!-- End of Body -->
+</body>
 </html>
