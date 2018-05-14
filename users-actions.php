@@ -12,41 +12,61 @@ $user_updated = false;
 $name = "";
 $email = "";
 $button_label = "Hozzáadás";
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if (isset($_POST['create'])) {
+        $name = mysqli_real_escape_string($link, $_POST['AccountName']);
+        $email = mysqli_real_escape_string($link, $_POST['Email']);
 
-if (isset($_POST['create'])) {
-    $name = mysqli_real_escape_string($link, $_POST['AccountName']);
-    $email = mysqli_real_escape_string($link, $_POST['Email']);
-
-    if ($email != "" or filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        if (isset($_SESSION['update']))
-        {
-            $queryCreate = sprintf("UPDATE users SET AccountName='%s', Email='%s' WHERE ID=%s",
-                mysqli_real_escape_string($link, $name),
-                mysqli_real_escape_string($link, $email),
-                mysqli_real_escape_string($link, $_SESSION['UserID']));
-            $user_updated = true;
-            $button_label = "Frissítés";
-        }
-        else
-        {
-            $queryCreate = sprintf("INSERT INTO users(AccountName, Email) VALUES ('%s', '%s')", $name, $email);
-            $user_created = true;
-        }
+        if ($email != "" or filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (isset($_SESSION['update']))
+            {
+                $queryCreate = sprintf("UPDATE users SET AccountName='%s', Email='%s' WHERE ID=%s",
+                    mysqli_real_escape_string($link, $name),
+                    mysqli_real_escape_string($link, $email),
+                    mysqli_real_escape_string($link, $_SESSION['UserID']));
+                $user_updated = true;
+                $button_label = "Frissítés";
+            }
+            else
+            {
+                $queryCreate = sprintf("INSERT INTO users(AccountName, Email) VALUES ('%s', '%s')", $name, $email);
+                $user_created = true;
+            }
 //        echo $queryCreate;
-        mysqli_query($link, $queryCreate) or die (mysqli_error($link));
+            mysqli_query($link, $queryCreate) or die (mysqli_error($link));
+        }
     }
-}elseif (isset($_GET['UserID'])){
-    $queryCreate = sprintf("SELECT AccountName, Email FROM users WHERE ID = %s", mysqli_real_escape_string($link, (string)$_GET['UserID']));
-    $modifyUser = mysqli_query($link, $queryCreate) or die (mysqli_error($link));
-    $row = mysqli_fetch_array($modifyUser);
-    $name = $row['AccountName'];
-    $email = $row['Email'];
-    $_SESSION['update'] = 'true';
-    $_SESSION['UserID'] = $_GET['UserID'];
-    $button_label = "Frissítés";
-}else{
-    session_unset();
+
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+    if (isset($_GET['UserID'])) {
+        print_r($_GET);
+        $query = sprintf("SELECT AccountName, Email FROM users WHERE ID = '%s'", mysqli_real_escape_string($link, (string)$_GET['UserID']));
+
+        $modifyUser = mysqli_query($link, $query) or die (mysqli_error($link));
+        $row = mysqli_fetch_array($modifyUser);
+
+        $name = $row['AccountName'];
+        $email = $row['Email'];
+        $button_label = "Frissítés";
+
+        if(isset($_GET['delete'])){
+            $query = sprintf("DELETE FROM users WHERE ID='%s'", mysqli_real_escape_string($link, string($_GET['UserID'])));
+            $button_label = "Újra létrehozás";
+        }else{
+            $_SESSION['update'] = 'true';
+            $_SESSION['UserID'] = $_GET['UserID'];
+        }
+
+
+    } else{
+        session_unset();
+    }
+}
+
 
 closeDB($link);
 ?>

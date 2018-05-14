@@ -20,7 +20,10 @@
         }
 ?>
 <div class="container main-content">
-    <h1>Felhasználók</h1>
+    <div class="jumbotron">
+        <h1>Felhasználók</h1>
+    </div>
+
     <div class="container">
         <nav class="navbar navbar-light bg-light justify-content">
             <a href="users-actions.php"><i class="fas fa-plus-square"> Új felhasználó rögzítése</i></a>
@@ -32,7 +35,7 @@
     </div>
 
     <?php
-    $userlist = listUsers($link, $search);
+        $userlist = listUsers($link, $search);
     ?>
 
     <br/>
@@ -57,8 +60,8 @@
                 <td><?=$row['Longitude']?></td>
                 <td><?=$row['Elevation']?></td>
                 <td class="justify-content-center">
-                    <a class="btn btn-primary btn-sm" href="users-actions.php?UserID=<?=$row['ID']?>"><i class="fas fa-edit"></i>Szerk.</a>
-                    <a class="btn btn-primary btn-sm" href="users-actions.php?UserID=<?=$row['ID']?>"><i class="fas fa-trash-alt"></i>Töröl</a>
+                    <a class="btn btn-primary btn-sm" href="users-actions.php?UserID=<?=$row['ID']?>"><i class="fas fa-edit"></i> Szerk.</a>
+                    <a class="btn btn-primary btn-sm" href="users-actions.php?UserID=<?=$row['ID']?>?delete=1"><i class="fas fa-trash-alt"></i> Töröl</a>
                 </td>
             </tr>
         <?php endwhile; ?>
