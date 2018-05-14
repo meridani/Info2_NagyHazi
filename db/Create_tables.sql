@@ -25,16 +25,16 @@ CREATE TABLE tracks (
 	ID int PRIMARY KEY AUTO_INCREMENT,
 	StartPosition INT NOT NULL,
     EndPosition INT NOT NULL,
-    FOREIGN KEY (`StartPosition`) REFERENCES location(ID),
-    FOREIGN KEY (`EndPosition`) REFERENCES location(ID)
+    FOREIGN KEY (`StartPosition`) REFERENCES location(ID) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (`EndPosition`) REFERENCES location(ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE travels (
 	ID int PRIMARY KEY AUTO_INCREMENT,
-    UserID int NOT NULL,
+    UserID int,
     TrackID int NOT NULL,
-	FOREIGN KEY ( `UserID` ) REFERENCES users(ID),
-    FOREIGN KEY ( `TrackID` ) REFERENCES tracks(ID)
+	FOREIGN KEY ( `UserID` ) REFERENCES users(ID) ON UPDATE CASCADE ON DELETE SET NULL,
+    FOREIGN KEY ( `TrackID` ) REFERENCES tracks(ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
     
 INSERT INTO location (Latitude, Longitude, Elevation) VALUES ( "12.345678"	, "12.345678"	, "170"   );

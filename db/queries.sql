@@ -6,3 +6,5 @@ SELECT u.AccountName, u.Email, l.Latitude, l.Longitude, l.Elevation
     WHERE AccountName IS NOT NULL
     ORDER BY AccountName
     ;
+    
+DELETE FROM users WHERE ID=2;
