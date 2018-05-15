@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <?php
-    include 'helper.php';
-    $link = openDB();
+include 'helper.php';
+$link = openDB();
 ?>
 
 <?php
@@ -15,7 +15,7 @@ if (isset($_POST['search'])) {
 
 <head>
     <?php include "head.html"; ?>
-    <title>Utazások - GPS nyomkövetés</title>
+    <title>Útvonalak - GPS nyomkövetés</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@ if (isset($_POST['search'])) {
 <!-- Start of Body -->
 <div class="container main-content">
     <div class="jumbotron">
-        <h1>Utazások</h1>
+        <h1>Útvonalak</h1>
     </div>
     <div class="container">
         <nav class="navbar navbar-light bg-light justify-content">
@@ -37,7 +37,7 @@ if (isset($_POST['search'])) {
     </div>
 
     <?php
-    $travelList = listTravels($link, $search);
+    $tracklist = listTrackNames($link, $search);
     ?>
 
     <br/>
@@ -46,22 +46,26 @@ if (isset($_POST['search'])) {
         <thead>
         <tr>
             <th>Útvonal neve</th>
-            <th>Felhasználó</th>
-            <th>Hányszor járt a szakaszon</th>
+            <th>Start pozíció</th>
+            <th>Végső pozíció</th>
+            <th>Hossz</th>
         </tr>
         </thead>
         <tbody>
-        <?php while ($row = mysqli_fetch_array($travelList)): ?>
+
+        <?php while ($row = mysqli_fetch_array($tracklist)): ?>
+        <?php //echo '<pre>'.print_r($row).'</pre>' ?>
             <tr>
                 <td><?=$row['TrackName']?></td>
-                <td><?=($row['AccountName'] != null ? $row['AccountName'] : "(ismeretlen)");?></td>
-                <td><?=$row['COUNT(trav.TrackID)']?></td>
+                <td><?="Lat: ".$row['StartLatitude'].", Lon: ".$row['StartLongitude'].", Ele: ".$row['StartElevation']?></td>
+                <td><?="Lat: ".$row['EndLatitude'].", Lon ".$row['EndLongitude'].", Ele: ".$row['EndElevation']?></td>
+                <td><?=round(vincentyGreatCircleDistance($row['StartLatitude'],$row['StartLongitude'],$row['EndLatitude'],$row['EndLongitude'])/1000, 3)." km"?></td>
             </tr>
         <?php endwhile; ?>
         </tbody>
     </table>
     <?php
-    if (mysqli_num_rows($travelList) == 0){
+    if (mysqli_num_rows($tracklist) == 0){
         echo '<span class="container">Nincs találat</span>';
     }?>
 
