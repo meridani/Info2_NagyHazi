@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     if (isset($_GET['UserID'])) {
-        print_r($_GET);
         $query = sprintf("SELECT AccountName, Email FROM users WHERE ID = '%s'", mysqli_real_escape_string($link, (string)$_GET['UserID']));
 
         $modifyUser = mysqli_query($link, $query) or die (mysqli_error($link));
