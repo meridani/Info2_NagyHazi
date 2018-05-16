@@ -2,10 +2,10 @@
 
 Ez az alkalmazás képes Felhasználók pozícióit és korábbi utazásait nyílvántartani.
 
-#Specifikáció
-##Alkalmazás leírása
+# Specifikáció
+## Alkalmazás leírása
 
-##Elérhető funkciók
+## Elérhető funkciók
 * Felhasználók 
   * Létrehozása
   * Frissétése
