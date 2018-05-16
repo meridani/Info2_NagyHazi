@@ -43,7 +43,7 @@ function listTravels($link, $searchcrit = "")
 {
     if ($searchcrit != "") {
         $escapedString = mysqli_real_escape_string($link, strtolower($searchcrit));
-        $searchrit = sprintf("WHERE u.AccountName like '%%%s%%' OR tr.TrackName like '%%%s%%'", $escapedString, $escapedString);
+        $searchcrit = sprintf("WHERE u.AccountName like '%%%s%%' OR tr.TrackName like '%%%s%%'", $escapedString, $escapedString);
     }
     $query = "SELECT trav.TrackID, tr.TrackName, u.AccountName, COUNT(trav.TrackID) FROM travels trav LEFT JOIN users u on u.ID = trav.UserID JOIN tracks tr on tr.ID = trav.TrackID"
         ." " . $searchcrit . " " .
@@ -54,14 +54,20 @@ function listTravels($link, $searchcrit = "")
     return $travellist;
 }
 
-function listTrackNames($link)
+function listTrackNames($link, $searchcrit ="")
 {
+    if ($searchcrit != "") {
+        $escapedString = mysqli_real_escape_string($link, strtolower($searchcrit));
+        $searchcrit = sprintf("WHERE t.TrackName like '%%%s%%'", $escapedString, $escapedString);
+    }
     $query = "SELECT t.ID, t.StartLocation, t.EndLocation, t.TrackName, 
                 s.Latitude as StartLatitude, s.Longitude as StartLongitude, s.Elevation as StartElevation, 
                 e.Latitude as EndLatitude, e.Longitude as EndLongitude, e.Elevation as EndElevation
                 FROM tracks t
                 INNER JOIN locations s on s.ID = StartLocation 
-                INNER JOIN locations e on e.ID = EndLocation;";
+                INNER JOIN locations e on e.ID = EndLocation"
+                ." " . $searchcrit . " " .
+                "ORDER BY t.TrackName;";
     $travellist = mysqli_query($link, $query) or die (mysqli_error($link));
     return $travellist;
 }

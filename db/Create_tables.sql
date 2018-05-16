@@ -8,8 +8,8 @@ use tracker;
 
 CREATE TABLE locations (
 	ID INT PRIMARY KEY AUTO_INCREMENT,
-    Latitude CHAR VARYING(11) NOT NULL,
-    Longitude CHAR VARYING(11) NOT NULL,
+    Latitude CHAR VARYING(20) NOT NULL,
+    Longitude CHAR VARYING(20) NOT NULL,
     Elevation CHAR VARYING(11)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE tracks (
 	ID int PRIMARY KEY AUTO_INCREMENT,
 	StartLocation INT NOT NULL,
     EndLocation INT NOT NULL,
-    TrackName CHAR VARYING(255) NOT NULL,
+    TrackName CHAR VARYING(191) NOT NULL UNIQUE,
     FOREIGN KEY (`StartLocation`) REFERENCES locations(ID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (`EndLocation`) REFERENCES locations(ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -44,6 +44,7 @@ INSERT INTO locations (Latitude, Longitude, Elevation) VALUES ( "1.345678",		"5.
 INSERT INTO locations (Latitude, Longitude, Elevation) VALUES ( "10",			"-10",			"12"	);
 INSERT INTO locations (Latitude, Longitude, Elevation) VALUES ( "47.4725994",	"19.0598549",	"104,45");
 INSERT INTO locations (Latitude, Longitude, Elevation) VALUES ( "47.4733228",	"19.0598791",	"101,56");
+INSERT INTO locations (Latitude, Longitude, Elevation) VALUES ( "12.345678",	"12.345679",	"170"	);
     
 INSERT INTO users (AccountName, Email, LocationID) VALUES("Meridani",	"szmanndani@gmail.com",	1);
 INSERT INTO users (AccountName, Email, LocationID) VALUES("Béla",		"béla@gmail.com",		2);    

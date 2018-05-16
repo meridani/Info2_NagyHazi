@@ -28,7 +28,7 @@ if (isset($_POST['search'])) {
     </div>
     <div class="container">
         <nav class="navbar navbar-light bg-light justify-content">
-            <a href="travels-actions.php"><i class="fas fa-plus-square"> Új utazás rögzítése</i></a>
+            <a href="tracks-actions.php"><i class="fas fa-plus-square"> Új útvonal rögzítése</i></a>
             <form class="form-inline" method="post">
                 <input class="form-control mr-sm-2" type="search" placeholder="Keresés" name="search" value="<?=$search?>">
                 <button class="btn btn-outline-success my-2 my-sm0" type="submit">Keresés</button>
